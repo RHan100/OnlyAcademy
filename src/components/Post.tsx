@@ -30,7 +30,7 @@ const Post: React.FC<PostProps> = ({user, title, description, image, like}) => {
       <Text style={styles.caption}>{title}</Text>
       <Image source={{uri: image}} style={styles.image} />
       <Text style={styles.caption}>{description}</Text>
-      <Text style={styles.caption}>{like} Likes</Text>
+      <Text style={styles.caption}>{likes} Likes</Text>
       <Button onPress={handleLike}>
         <Text>{liked ? 'Dislike' : 'Like'}</Text>
       </Button>
