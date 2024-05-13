@@ -1,12 +1,11 @@
-import {View, Text, StatusBar, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import Story from 'react-native-story-component';
 import {faker} from '@faker-js/faker';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 const createStories = () => {
-  const USER_COUNT = 5;
-  const USER_STORY_COUNT = 3;
+  const USER_COUNT = 10;
+  const USER_STORY_COUNT = 2;
 
   return [...Array(USER_COUNT).keys()].map(i => ({
     id: `user-${i}`,
@@ -34,24 +33,21 @@ const STORIES = createStories();
 
 export default function Stories() {
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor="#fff" barStyle="dark-content" />
-      <Story
-        data={STORIES}
-        duration={10}
-        onImagesPrefetched={status => {
-          console.log('is all images prefetched ->', status);
-        }}
-        customSwipeUpButton={CustomSwipeButton}
-      />
-    </SafeAreaView>
+    <Story
+      data={STORIES}
+      duration={10}
+      onImagesPrefetched={status => {
+        console.log('is all images prefetched ->', status);
+      }}
+      customSwipeUpButton={CustomSwipeButton}
+    />
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffafa',
+    backgroundColor: '#fffafa',
   },
   textElement: {
     color: '#000000',
