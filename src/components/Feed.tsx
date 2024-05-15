@@ -6,6 +6,7 @@ import Post from './Post';
 const Feed: React.FC = () => {
   const posts = Array.from({length: 10}, () => ({
     user: faker.internet.userName(),
+    image_avatar: faker.image.avatarGitHub(),
     title: faker.lorem.sentence(),
     description: faker.lorem.paragraph(),
     image: faker.image.url(),
