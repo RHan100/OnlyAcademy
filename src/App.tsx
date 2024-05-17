@@ -3,7 +3,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-// import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 // import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 
 // import {PaperProvider} from 'react-native-paper';
@@ -12,6 +12,7 @@ import Login from './components/Login';
 import UserPage from './components/UserPage';
 import Feed from './components/Feed';
 import CameraScreen from './components/CameraScreen';
+import PaymentScreen from './components/PaymentScreen';
 
 type RootStackParamList = {
   Login: undefined;
@@ -39,18 +40,42 @@ const App: React.FC = () => (
 
 const HomeNavigator: React.FC = () => (
   <Tab.Navigator>
-    <Tab.Screen name="Perfil" component={UserPage} />
-    <Tab.Screen name="Feed" component={Feed} />
+    <Tab.Screen
+      name="Perfil"
+      component={UserPage}
+      options={{
+        tabBarIcon: ({color, size}) => (
+          <Icon name="person" size={size} color={color} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Feed"
+      component={Feed}
+      options={{
+        tabBarIcon: ({color, size}) => (
+          <Icon name="newspaper" size={size} color={color} />
+        ),
+      }}
+    />
     <Tab.Screen
       name="Câmera"
       component={CameraScreen}
-      // options={{
-      //   tabBarIcon: ({color, size}) => (
-      //     <Icon name="camera" size={size} color={color} />
-      //   ),
-      // }}
+      options={{
+        tabBarIcon: ({color, size}) => (
+          <Icon name="camera" size={size} color={color} />
+        ),
+      }}
     />
-    <Tab.Screen name="Pagamento" component={PaymentScreen} />
+    <Tab.Screen
+      name="Planos"
+      component={PaymentScreen}
+      options={{
+        tabBarIcon: ({color, size}) => (
+          <Icon name="card" size={size} color={color} />
+        ),
+      }}
+    />
   </Tab.Navigator>
 );
 
