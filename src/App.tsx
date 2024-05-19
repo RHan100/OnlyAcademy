@@ -13,17 +13,22 @@ import UserPage from './components/UserPage';
 import Feed from './components/Feed';
 import CameraScreen from './components/CameraScreen';
 import PaymentScreen from './components/PaymentScreen';
+import PremiumMonthPayment from './components/PremiumMonthPayment';
+import PremiumAnnualPayment from './components/PremiumAnnualPayment';
 
 type RootStackParamList = {
   Login: undefined;
   Home: undefined;
+  Pagamento: undefined;
+  Mensal: undefined;
+  Anual: undefined;
 };
 
 type TabParamList = {
   Perfil: undefined;
   Feed: undefined;
   Câmera: undefined;
-  Pagamento: undefined;
+  Planos: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -34,6 +39,9 @@ const App: React.FC = () => (
     <Stack.Navigator>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Home" component={HomeNavigator} />
+      <Stack.Screen name="Pagamento" component={PaymentScreen} />
+      <Stack.Screen name="Mensal" component={PremiumMonthPayment} />
+      <Stack.Screen name="Anual" component={PremiumAnnualPayment} />
     </Stack.Navigator>
   </NavigationContainer>
 );

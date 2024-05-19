@@ -1,42 +1,52 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+// import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-const PaymentScreen: React.FC = () => {
-  const navigation = useNavigation();
+type RootStackParamList = {
+  PaymentScreen: undefined;
+  Mensal: undefined;
+  Anual: undefined;
+};
 
-  const handlePlanSelection = (plan: string) => {
-    if (plan === 'free') {
-    } else if (plan === 'premium-month') {
-      navigation.navigate('PremiumMonthPayment');
-    } else if (plan === 'premium-annual') {
-      navigation.navigate('PremiumAnnualPayment');
-    }
+type PaymentScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'PaymentScreen'
+>;
+
+type Props = {
+  navigation: PaymentScreenNavigationProp;
+};
+
+const PaymentScreen: React.FC<Props> = ({navigation}) => {
+  // const navigateToFree = () => {
+  //   navigation.navigate('a');
+  // };
+  const navigateToMonthPay = () => {
+    navigation.navigate('Mensal');
+  };
+
+  const navigateToAnnualPay = () => {
+    navigation.navigate('Anual');
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Escolha seu plano</Text>
 
-      <TouchableOpacity
-        style={styles.planButton}
-        onPress={() => handlePlanSelection('free')}>
+      <TouchableOpacity style={styles.planButton} onPress={navigateToMonthPay}>
         <Text style={styles.planTitle}>FREE</Text>
         <Text style={styles.planDescription}>
           Continue utilizando o aplicativo
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.planButton}
-        onPress={() => handlePlanSelection('premium-month')}>
+      <TouchableOpacity style={styles.planButton} onPress={navigateToMonthPay}>
         <Text style={styles.planTitle}>PREMIUM MENSAL</Text>
         <Text style={styles.planDescription}>Valor: R$ 1,99 por mês</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.planButton}
-        onPress={() => handlePlanSelection('premium-annual')}>
+      <TouchableOpacity style={styles.planButton} onPress={navigateToAnnualPay}>
         <Text style={styles.planTitle}>PREMIUM ANUAL</Text>
         <Text style={styles.planDescription}>Valor: R$ 15,00</Text>
       </TouchableOpacity>
