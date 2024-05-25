@@ -9,14 +9,13 @@ const createStories = () => {
 
   return [...Array(USER_COUNT).keys()].map(i => ({
     id: `user-${i}`,
-    avatar: faker.image.avatar(),
+    avatar: faker.image.avatarGitHub(),
     name: faker.person.fullName(),
-
     stories: [...Array(USER_STORY_COUNT).keys()].map(y => ({
       id: `story-${i}-${y}`,
-      image: faker.image.animals(1080, 1920, true),
+      image: faker.image.urlLoremFlickr({category: 'nature'}),
       swipeText: faker.lorem.text(),
-      onPress: () => console.log(`Story ${i}-${y} swiped!`),
+      onPress: () => console.log(`Story ${i}-${y} deslizado!`),
     })),
   }));
 };
@@ -24,10 +23,18 @@ const createStories = () => {
 const CustomSwipeButton = () => {
   return (
     <View>
-      <Text style={styles.textElement}>Swipe</Text>
+      <Text style={styles.textElement}>Deslize</Text>
     </View>
   );
 };
+
+// const CustomStorieList = () => {
+//   return (
+//     <View>
+//       <Text style={styles.textElement}> teste </Text>
+//     </View>
+//   );
+// };
 
 const STORIES = createStories();
 
@@ -40,16 +47,16 @@ export default function Stories() {
         console.log('is all images prefetched ->', status);
       }}
       customSwipeUpButton={CustomSwipeButton}
+      // customStoryList={CustomStorieList}
     />
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fffafa',
-  },
   textElement: {
-    color: '#000000',
+    color: '#fffffff',
   },
+  // textStyle: {
+  //   color: '#000000',
+  // },
 });
