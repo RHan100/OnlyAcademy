@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-// import {useNavigation} from '@react-navigation/native';
+import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {Text} from 'react-native-paper';
 
 type RootStackParamList = {
   PaymentScreen: undefined;
@@ -19,9 +19,6 @@ type Props = {
 };
 
 const PaymentScreen: React.FC<Props> = ({navigation}) => {
-  // const navigateToFree = () => {
-  //   navigation.navigate('a');
-  // };
   const navigateToMonthPay = () => {
     navigation.navigate('Mensal');
   };
@@ -48,7 +45,7 @@ const PaymentScreen: React.FC<Props> = ({navigation}) => {
 
       <TouchableOpacity style={styles.planButton} onPress={navigateToAnnualPay}>
         <Text style={styles.planTitle}>PREMIUM ANUAL</Text>
-        <Text style={styles.planDescription}>Valor: R$ 15,00</Text>
+        <Text style={styles.planDescription}>Valor: R$ 16,99</Text>
       </TouchableOpacity>
     </View>
   );
@@ -64,7 +61,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
     color: '#F5F5DC',
   },
   planButton: {
