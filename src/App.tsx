@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 // import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 // import Icon from 'react-native-vector-icons/Ionicons';
@@ -14,6 +14,9 @@ import PaymentScreen from './components/PaymentScreen';
 import PremiumMonthPayment from './components/PremiumMonthPayment';
 import PremiumAnnualPayment from './components/PremiumAnnualPayment';
 import HomeNavigator from './components/HomeNavigator';
+import {AuthProvider, useAuth} from './provider/AuthProvider';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {TouchableOpacity} from 'react-native';
 
 type RootStackParamList = {
   Login: undefined;
@@ -33,18 +36,68 @@ type RootStackParamList = {
 const Stack = createStackNavigator<RootStackParamList>();
 // const Tab = createBottomTabNavigator<TabParamList>();
 
-const App: React.FC = () => (
-  <PaperProvider>
+function App() {
+  const {signOut, initialized} = useAuth();
+  return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Home" component={HomeNavigator} />
-        <Stack.Screen name="Pagamento" component={PaymentScreen} />
-        <Stack.Screen name="Mensal" component={PremiumMonthPayment} />
-        <Stack.Screen name="Anual" component={PremiumAnnualPayment} />
+      <Stack.Navigator
+        screenOptions={{
+          headerRight: () => (
+            <TouchableOpacity onPress={signOut}>
+              <Icon name="log-out-outline" size={30} color={'black'} />
+            </TouchableOpacity>
+          ),
+        }}>
+        {initialized ? (
+          <>
+            <Stack.Screen
+              name="Home"
+              component={HomeNavigator}
+              options={{headerTitle: ''}}
+            />
+            <Stack.Screen name="Pagamento" component={PaymentScreen} />
+            <Stack.Screen name="Mensal" component={PremiumMonthPayment} />
+            <Stack.Screen name="Anual" component={PremiumAnnualPayment} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{headerShown: false}}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
-  </PaperProvider>
-);
+  );
+}
+
+// const App: React.FC = () => (
+//   const {signOut} = useAuth();
+//   return(
+
+//   <NavigationContainer
+//     screenOptions={{
+//       headerRight: () => (
+//         <TouchableOpacity onPress={signOut}>
+//           <Icon name="log-out-outline" size={30} color={'#fff'} />
+//         </TouchableOpacity>
+//       ),
+//     }}>
+//     <Stack.Navigator>
+//       <Stack.Screen
+//         name="Login"
+//         component={Login}
+//         options={{headerShown: false}}
+//       />
+//       <Stack.Screen name="Home" component={HomeNavigator} />
+//       <Stack.Screen name="Pagamento" component={PaymentScreen} />
+//       <Stack.Screen name="Mensal" component={PremiumMonthPayment} />
+//       <Stack.Screen name="Anual" component={PremiumAnnualPayment} />
+//     </Stack.Navigator>
+//   </NavigationContainer>
+//   )
+// );
 
 export default App;
