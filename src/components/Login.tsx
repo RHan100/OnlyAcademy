@@ -12,7 +12,6 @@ import React from 'react';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {supabase} from '../config/initSupabase';
 import {useNavigation} from '@react-navigation/native';
-import {useAuth} from '../provider/AuthProvider';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -23,13 +22,29 @@ const Login = () => {
   const onSignInPress = async () => {
     setLoading(true);
 
-    const {error} = await supabase.auth.signInWithPassword({
+    const {data: loginData, error} = await supabase.auth.signInWithPassword({
       email,
       password,
     });
-
+    const user = loginData.session.user;
     if (error) {
       Alert.alert(error.message);
+    }
+    console.log(user);
+    let {data: queryProfile, queryError} = await supabase
+      .from('profile')
+      .select('id')
+      .eq('user_id', user.id);
+    if (queryError) {
+      return;
+    }
+    console.log({queryProfile});
+    if (queryProfile.length === 0) {
+      const {data, error} = await supabase
+        .from('profile')
+        .insert([{user_id: user.id}])
+        .select();
+      console.log(data);
     }
     setLoading(false);
   };

@@ -14,16 +14,21 @@ import PaymentScreen from './components/PaymentScreen';
 import PremiumMonthPayment from './components/PremiumMonthPayment';
 import PremiumAnnualPayment from './components/PremiumAnnualPayment';
 import HomeNavigator from './components/HomeNavigator';
-import {AuthProvider, useAuth} from './provider/AuthProvider';
+import {useAuth} from './provider/AuthProvider';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {TouchableOpacity} from 'react-native';
+import ProfileForm from './components/ProfileForm';
+import ImagesList from './components/list';
 
-type RootStackParamList = {
+export type RootStackParamList = {
   Login: undefined;
   Home: undefined;
   Pagamento: undefined;
   Mensal: undefined;
   Anual: undefined;
+  ProfileForm: undefined;
+  UserPage: undefined;
+  ImagesList: undefined;
 };
 
 // type TabParamList = {
@@ -58,6 +63,8 @@ function App() {
             <Stack.Screen name="Pagamento" component={PaymentScreen} />
             <Stack.Screen name="Mensal" component={PremiumMonthPayment} />
             <Stack.Screen name="Anual" component={PremiumAnnualPayment} />
+            <Stack.Screen name="ProfileForm" component={ProfileForm} />
+            <Stack.Screen name="ImagesList" component={ImagesList} />
           </>
         ) : (
           <>
