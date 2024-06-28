@@ -25,9 +25,9 @@ const Post: React.FC<PostProps> = ({
 
   const handleLike = () => {
     if (liked) {
-      setLikes(likes - 1);
+      setLikes(Number(likes) - 1);
     } else {
-      setLikes(likes + 1);
+      setLikes(Number(likes) + 1);
     }
     setLiked(!liked);
   };

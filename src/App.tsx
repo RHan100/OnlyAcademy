@@ -19,6 +19,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {TouchableOpacity} from 'react-native';
 import ProfileForm from './components/ProfileForm';
 import ImagesList from './components/list';
+import PostForm from './components/PostForm';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -27,6 +28,7 @@ export type RootStackParamList = {
   Mensal: undefined;
   Anual: undefined;
   ProfileForm: undefined;
+  PostForm: undefined;
   UserPage: undefined;
   ImagesList: undefined;
 };
@@ -64,6 +66,7 @@ function App() {
             <Stack.Screen name="Mensal" component={PremiumMonthPayment} />
             <Stack.Screen name="Anual" component={PremiumAnnualPayment} />
             <Stack.Screen name="ProfileForm" component={ProfileForm} />
+            <Stack.Screen name="PostForm" component={PostForm} />
             <Stack.Screen name="ImagesList" component={ImagesList} />
           </>
         ) : (

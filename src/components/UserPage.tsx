@@ -13,6 +13,7 @@ import {useAuth} from '../provider/AuthProvider';
 import {supabase} from '../config/initSupabase';
 import {NativeStackScreenProps} from 'react-native-screens/lib/typescript/native-stack/types';
 import {RootStackParamList} from '../App';
+import Post from './Post';
 
 type UserPageNavigationProps = NativeStackScreenProps<
   RootStackParamList,
@@ -28,6 +29,14 @@ const UserPage = (props: UserPageNavigationProps) => {
     following: faker.number.int(7000),
     media: [faker.image.url(), faker.image.url(), faker.image.url()],
   });
+
+  // const posts = Array.from({length: 10}, () => ({
+  //   description: faker.lorem.paragraph(),
+  //   image: faker.image.url(),
+  //   like: faker.number.int(100),
+  // }));
+  const [posts, setPosts] = useState([]);
+
   const navigation = useNavigation();
   const {user} = useAuth();
   const isFocused = useIsFocused();
@@ -51,6 +60,18 @@ const UserPage = (props: UserPageNavigationProps) => {
       });
     };
     getDados();
+    const getPosts = async () => {
+      let {data: queryPosts, error} = await supabase
+        .from('posts')
+        .select('content, likes, image_url')
+        .eq('user_id', user.id);
+      if (error) {
+        return;
+      }
+      console.log(queryPosts);
+      setPosts(queryPosts);
+    };
+    getPosts();
   }, [isFocused]);
 
   return (
@@ -69,8 +90,11 @@ const UserPage = (props: UserPageNavigationProps) => {
         <Text>Seguindo: {userInfo.following}</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <Button mode="contained" style={styles.button}>
-          Seguir
+        <Button
+          mode="contained"
+          style={styles.button}
+          onPress={() => navigation.navigate('PostForm')}>
+          Criar Post
         </Button>
         <Button
           mode="contained"
@@ -86,8 +110,13 @@ const UserPage = (props: UserPageNavigationProps) => {
           flexWrap: 'wrap',
           justifyContent: 'center',
         }}>
-        {userInfo.media.map((media, index) => (
-          <Image key={index} source={{uri: media}} style={styles.mediaItem} />
+        {posts.map((post, index) => (
+          <Post
+            key={index}
+            description={post.content}
+            like={post.likes}
+            image={post.image_url}
+          />
         ))}
       </ScrollView>
     </View>

@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-// import * as ImagePicker from 'expo-image-picker';
 import {supabase} from '../config/initSupabase';
 import {NativeStackScreenProps} from 'react-native-screens/lib/typescript/native-stack/types';
 import {RootStackParamList} from '../App';
@@ -118,7 +117,7 @@ const ProfileForm = (props: ProfileFormProps) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Create Your Profile</Text>
+      <Text style={styles.title}>Edite seu Perfil</Text>
       <TextInput
         style={styles.input}
         placeholder="First Name"
@@ -164,7 +163,7 @@ const ProfileForm = (props: ProfileFormProps) => {
       </TouchableOpacity>
       {coverImage && <Image source={{uri: coverImage}} style={styles.image} />} */}
       <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-        <Text style={styles.submitButtonText}>Submit</Text>
+        <Text style={styles.submitButtonText}>Enviar</Text>
       </TouchableOpacity>
     </View>
   );
